@@ -341,8 +341,10 @@ def forgot_email():
             "SELECT * FROM users WHERE email =%s", [email])
         session['email'] = email
         if email_check > 0:
-
-            insert_data = cur.execute(
+            data = cur.fetchone()
+            user_id = data['id']
+            session['id'] = user_id
+            cur.execute(
                 "UPDATE users SET code=%s WHERE email=%s",
                 (code, email))
 
@@ -356,8 +358,8 @@ def forgot_email():
                 'OTP', sender='prouser.rahul.01@gmail.com', recipients=[email])
             msg.body = str(code)
             mail.send(msg)
-            info = flash('Verification Requird', 'success')
-            return redirect(url_for('verifyotp'))
+            flash('Verification Requird', 'success')
+            return redirect(url_for('verifyotp',id=user_id))
         else:
             flash('Email does not Exist', "danger")
     return render_template('forgot_password.html', form=form)
@@ -368,39 +370,39 @@ def forgot_email():
 
 
 # Reset Password OTP verification
-@app.route('/Verify_ otp', methods=['GET', 'POST'])
-def verifyotp():
+@app.route('/Verify_ otp/<id>', methods=['GET', 'POST'])
+def verifyotp(id):
     form = ValidationForm(request.form)
     if request.method == 'POST' and form.validate():
         user_otp = form.otp_field.data
         cur = mysql.connection.cursor()
         code_check = cur.execute(
-            "SELECT * FROM users WHERE code =%s", [user_otp])
+            "SELECT * FROM users WHERE id =%s", [id])
 
         if code_check > 0:
             code = 0
-            update_otp = cur.execute("UPDATE users SET code=%s WHERE code=%s",
+            cur.execute("UPDATE users SET code=%s WHERE code=%s",
                                      (code, user_otp))
             flash("varification successful", "success")
-            return redirect(url_for("newpassword"))
+            return redirect(url_for("newpassword",id=id))
 
         flash("failure, OTP does not match", 'danger')
-        return redirect(url_for('verify_otp'))
+        return redirect(url_for('verify_otp', id=id))
 
     return render_template('Verify.html', form=form)
 
 
 # Forgot password
-@app.route('/newpassword', methods=['GET', 'POST'])
-def newpassword():
+@app.route('/newpassword/<id>', methods=['GET', 'POST'])
+def newpassword(id):
     form = NewpasswordForm(request.form)
     if request.method == 'POST' and form.validate():
         newpassword = sha256_crypt.encrypt(str(form.newpassword.data))
         cnf_newpassword = form.cnf_newpassword.data
-        email = session['email']
+        # email = session['email']
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE users SET password=%s WHERE email=%s",
-                    (newpassword, email))
+        cur.execute("UPDATE users SET password=%s WHERE id=%s",
+                    (newpassword, id))
         flash("varification successful", "success")
         return redirect(url_for("login"))
 
