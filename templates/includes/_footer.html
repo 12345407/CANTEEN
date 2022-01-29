@@ -1,0 +1,281 @@
+<!-- Extra Footer -->
+<footer>
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="left box">
+                    {% if session.logged_in %}
+                    <div class="upper">
+
+                        <div class="topic">USEFUL LINKS</div>
+                        <div><a class="footer_menu" href="\"><i class="fa fa-home"></i> Home</a></div>
+                        <div><a class="footer_menu" href="\"><i class="fa fa-globe"></i> Official Website</a></div>
+                        <div><a class="footer_menu" href="\"><i class="fab fa-facebook-f"></i> Official Page</a></div>
+
+
+                    </div>
+                    {% else %}
+                    <div class="upper">
+
+                        <div class="topic">CONNECT</div>
+                        <div><a class="footer_menu" href="/admin_login"><i class="fa fa-user-circle "></i> Admin
+                                Login</a></div>
+                        <div><a class="footer_menu" href="\login"><i class="fa fa-user-circle "></i> Student Login</a>
+                        </div>
+                        <div><a class="footer_menu" href="\login"><i class="fa fa-user-circle "></i> Staff Login</a>
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="middle box">
+                    <div class="topic">CONTACT</div>
+                    <div><a class="footer_menu" href="Mailto:jharahul1195@gmail.com"> <i class="fa fa-envelope"></i>
+                            admin@gmail.com</a></div>
+                    <div><a class="footer_menu" href="Tel:9372920515"><i class="fa fa-phone"></i> +22 22457815</a></div>
+                    <div><a class="footer_menu" href="https://wa.me/9372920515/"><i class="fab fa-weixin"></i>
+                            +919372920515</a>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="right box">
+                    <div class="topic" style="text-align: center;">SUBSCRIBE</div>
+                    <form action="/feedback" method="POST">
+                        {% if session.logged_in %}
+                        <input type="text" name="email" required value="{{session.email}}">
+
+                        {% else %}
+                        <input type="text" name="email" required placeholder="Enter email address">
+
+                        {% endif %}
+                        <input type="submit" name="" value="SUBSCRIBE">
+
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="bottom ">
+        <p>Copyright © 2020 <a href="#"></a> All rights reserved</p>
+
+
+        <a href="" style="margin: 15px;"><i class="fab fa-instagram"></i></a>
+        <a href="" style="margin: 15px;"><i class="fab fa-twitter"></i></a>
+        <a href="" style="margin: 15px;"><i class="fab fa-facebook-messenger"></i></a>
+        <a href="" style="margin: 15px;"><i class="fab  fa-youtube"></i></a>
+
+    </div>
+
+
+
+
+
+    <!-- <div class="bottom">
+        <p>Copyright © 2020 <a href="#"></a> All rights reserved</p>
+        <i class="fab fa-instagram"></i>
+    </div> -->
+</footer>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        text-decoration: none;
+
+    }
+
+    footer {
+        width: 100%;
+        position: static;
+        bottom: 0;
+        left: 0;
+        background: rgb(63, 57, 57);
+    }
+
+    footer .content {
+
+        margin: auto;
+        padding: 20px;
+
+
+        justify-content: space-between;
+    }
+
+    footer .content p,
+    .footer_menu {
+        color: #fff;
+        text-decoration: none;
+        transition: 0.4s;
+    }
+
+
+    footer .content .box {
+
+        transition: all 0.4s ease;
+    }
+
+    footer .content .topic {
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 400;
+        color: white;
+        margin-bottom: 16px;
+
+    }
+
+
+    footer .content .lower .topic {
+        margin: 24px 0 5px 0;
+        text-decoration: none;
+    }
+
+
+    footer .content .upper {
+        padding-left: 80px;
+        text-decoration: none;
+    }
+
+    footer .content .upper a {
+        line-height: 32px;
+        text-decoration: none;
+    }
+
+    footer .content .middle {
+        padding-left: 80px;
+        text-decoration: none;
+    }
+
+    footer .content .middle a {
+        line-height: 32px;
+        text-decoration: none;
+    }
+
+    footer .content .right input[type="text"] {
+        height: 45px;
+        width: 100%;
+        outline: none;
+        color: #d9d9d9;
+        text-decoration: none;
+        background: #000;
+        border-radius: 5px;
+        padding-left: 10px;
+        font-size: 17px;
+        border: 2px solid #222222;
+    }
+
+    #subject {
+        height: 45px;
+        width: 100%;
+        outline: none;
+        color: #d9d9d9;
+        text-decoration: none;
+        background: #000;
+        border-radius: 5px;
+        padding-left: 10px;
+        font-size: 17px;
+        border: 2px solid #222222;
+    }
+
+    .success {
+        height: 42px;
+        width: 100%;
+        font-size: 18px;
+        text-decoration: none;
+        color: #d9d9d9;
+        background: #131413;
+        outline: none;
+        border-radius: 5px;
+        letter-spacing: 1px;
+        cursor: auto;
+        margin-top: 12px;
+        border: 2px solid;
+        transition: all 0.3s ease-in-out;
+    }
+
+
+    footer .content .right input[type="submit"] {
+        height: 42px;
+        width: 100%;
+        font-size: 18px;
+        text-decoration: none;
+        color: #d9d9d9;
+        background: #131413;
+        outline: none;
+        border-radius: 5px;
+        letter-spacing: 1px;
+        cursor: pointer;
+        margin-top: 12px;
+        border: 2px solid;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .content .right input[type="submit"]:hover {
+        background: none;
+        color: green;
+    }
+
+
+
+
+
+    footer .bottom {
+        width: 100%;
+        /* text-align: right;*/
+        color: #d9d9d9;
+        justify-content: space-between;
+        padding: 0 40px 5px 0;
+
+
+    }
+
+    footer .bottom a {
+        color: #FFFFFF;
+    }
+
+
+    footer .bottom1 {
+        width: 100%;
+        /* text-align: right;*/
+        color: #d9d9d9;
+        font-weight: 500;
+        font-size: 18px;
+
+        padding: 0 40px 5px 0;
+
+
+    }
+
+    footer .bottom1 a {
+        color: #2394DF;
+    }
+
+    footer a {
+        transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+        color: green;
+    }
+</style>
+
+
+
+
+<!-- close -->

@@ -1,0 +1,129 @@
+{% extends 'layout.html' %}
+
+
+{% include 'includes/_flashmsg.html' %}
+{% block body %}
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        margin: auto;
+        padding: 0 20px 0 20px;
+        font-family: arial;
+    }
+
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+
+    .card button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: green;
+
+        cursor: pointer;
+        width: 50%;
+        font-size: 18px;
+    }
+
+    .card button:hover {
+        opacity: 0.7;
+    }
+</style>
+
+
+{% for i in category %}
+
+<div class="row">
+    <div class="col-sm-6">
+        <h3>{{ i.category}}</h3>
+    </div>
+
+</div>
+<hr style="height: 1px; background:black"><br>
+{% endfor %}
+
+<div class="row ">
+    {% for product in product %}
+
+
+
+    <div class="card">
+        <a href="/View_Product_id/view_product_id.html?id={{product.id}}" style="text-decoration: none;">
+            <div class="card-img-top id_{{product.id}}"
+                style="background: url('/static/image/product/{{product.category}}/{{product.picture}}'); background-repeat:no-repeat; background-size: cover; height:250px;width:100% ">
+            </div>
+            <p><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> 26</p>
+
+            <h1>{{product.pName}}</h1>
+            <p class="price">${{product.price}}</p>
+            <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem
+                jeansum.</p>
+            <p><button onclick="add_to_cart('{{product.id}}',' {{product.pName}}',' {{product.price}}')">Add to
+                    Cart</button>
+                <button style="float: right;">Order Now</button>
+            </p>
+        </a>
+    </div>
+
+
+
+
+    {% endfor %}
+
+
+</div>
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card mb-4">
+
+            <a href="/View_Product_id/view_product_id.html?id={{product.id}}">
+                <div class="card-img-top id_{{product.id}}"
+                    style="background: url('/static/image/product/{{product.category}}/{{product.picture}}'); background-repeat:no-repeat; background-size: cover; height:250px;width:100% ">
+
+
+                </div>
+            </a>
+
+
+            <div class="card-body">
+                <h4><a class="card-title" style="text-decoration: none; color:green; text-align: center;"
+                        href="/{{product.category}}?view={{product.id}}">{{
+                        product.pName}}</a></h4>
+                <div class="ROW">
+                    <div class="col-sm-4">
+
+                        <h4>${{product.price}}</h4>
+                    </div>
+                    <div class="col-sm-4"><button class="btn btn-success"
+                            onclick="add_to_cart('{{product.id}}',' {{product.pName}}',' {{product.price}}')"><i
+                                class="fa fa-cart-plus"></i> Cart</button>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="/{{product.category}}?order={{product.id}}" class="btn btn-success"><i
+                                class="fab fa-jedi-order"></i> Order</a>
+                    </div>
+                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                </div>
+
+
+            </div>
+        </div>
+    </div> -->

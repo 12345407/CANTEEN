@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% include 'includes/_flashmsg.html' %}
+{% block body %}
+<div class="container">
+
+
+    <!-- /.col-lg-3 -->
+
+    <div class="row">
+        {% for product in id %}
+        <div class="col-sm-6">
+
+
+            <div class="card mt-4 " style="height: 300px;">
+                <img class="card" src="/static/image/product/{{product.category}}/{{product.picture}}" alt="hello">
+            </div>
+            <div class="card card-outline-secondary my-2 card-body mb-4">
+                <h4 class="card-text">{{ product.pName}}</h4>
+                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                <p class="card-text">Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem
+                    jeamsun denim lor jeansum.</p>
+                <p class="card-text">{{ product.description}}</p>
+
+            </div>
+
+
+        </div>
+
+        <div class="col-sm-6">
+
+
+
+            <!-- /.card -->
+
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Product Details
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ product.pName}}</h3>
+                    <h4>${{ product.price}}</h4>
+                    <p class="card-text">{{ product.description}}</p>
+
+                    <a href="/order_product/order_detail?order={{product.id}}" class="btn btn-success">Order
+                        Now</a>
+                    <!-- <a href="" class="btn btn-primary"
+                            onclick="add_to_cart('{{product.id}}', '{{product.pName}}',' {{product.price}}')">Add To
+                            Basket <i class="fa fa-cart-plus" aria-hidden="true"></i></a> -->
+
+
+                    <button class="btn btn-success"
+                        onclick="add_to_cart('{{product.id}}', '{{product.pName}}', '{{product.price}}', '{{product.category}}', '{{product.picture}}')">
+                        Add <i class="fas fa-cart-plus"> </i>
+                    </button>
+
+
+
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+        <!-- /.card -->
+
+    </div>
+
+</div>
+{% endblock body %}

@@ -1,0 +1,99 @@
+<div class="container mb-0 mt-50px">
+    <img src="/static/image/other/Dalia-College-Logo-new-long-iso-1-20200505-101648.jpg" alt=""
+        style="width:100%; cursor: pointer;">
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm fixed-top "
+    style="margin-bottom: 20px;">
+    <a class="navbar-brand" href=""><span style="color:green;font-family: 'Permanent Marker', cursive;"><b
+                style="font-family: 'Permanent Marker', Segoe Print;">Food</b>
+            <i class="fas fa-pepper-hot" style="color: green;"></i>
+            <b style="font-family: 'Permanent Marker', Segoe Print;">Hunt</b>
+
+        </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="input-group p-0">
+            <form action="/search" method="get" class="w-100 m-0" style="padding-right: 20%;">
+                <div class="input-group-append rounded-left">
+                    <input type="text" class="form-control rounded-left form-control-sm" autocomplete="on"
+                        style=" border-radius: 0; outline:none" name="q" placeholder="What you want...">
+                    <button class="btn btn-success btn-sm rounded-right" style="border-radius: 0; outline:none;"
+                        type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+
+
+        <ul class="navbar-nav" style="padding-right: 2%;">
+            <a href="/" class="nav-link"><span class=""></span> Home</a>
+            <a href="https://www.dalmialionscollege.ac.in/about-us/" class="nav-link"><span class="">About</span></a>
+            <a href="/food" class="nav-link"><span class=""></span>menu</a>
+            <a href="/contact" class="nav-link">
+                Contact</a>
+            {% if session.logged_in %}
+            <a href="/canteen/cart.html">
+                <button class="  inp-txt navbar-brand " type="button" style="outline: none; background-color:white">
+                    <i class="fa fa-cart-plus" style="color: green; font-size:20px"> <span
+                            class="cart-items">(0)</span></i>
+                </button>
+            </a>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    style="outline: none; background-color:white; outline:none; border:none; cursor:pointer"><i
+                        class="fa fa-user" style="color: green;"> {{session.s_name}}</i>
+
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/user/profile"><i class="fa fa-user"></i>
+                        Profile</a>
+                    <a href="/setting" class="dropdown-item"><span class=""></span><i class="fa fa-gear fa-fw"></i>
+                        Setting</a>
+
+                    <hr>
+                    <a href="/out" class="dropdown-item"><span class=""></span><i class="fas fa-power-off"></i>
+                        Logout</a>
+                </div>
+            </div>
+
+
+
+
+            {% else %}
+
+            <a href="/login" class="nav-link"><span class=""></span> Login</a>
+            {% endif %}
+
+
+        </ul>
+    </div>
+</nav>
+<style>
+    .inp-txt {
+        align-items: center;
+        float: right;
+
+        border: none;
+        font-size: 18px;
+        font-family: 'Courier New', Courier, monospace;
+        width: 150px;
+        text-align: center;
+        text-overflow: clip;
+        cursor: pointer;
+        outline: none;
+        transition: 0.2s;
+    }
+
+
+
+    .nav-link:hover {
+        text-decoration: none;
+        color: green;
+    }
+</style>
