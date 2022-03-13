@@ -101,19 +101,22 @@ def index():
 
 
 # Home page
-@app.route('/canteen')
+@app.route('/canteen/<id>')
 @is_logged_in
-def index_login():
-
+def index_login(id):
+    
     cur = mysql.connection.cursor()
+    user = cur.execute('SELECT * FROM users WHERE id =%s',(id,))
+    # if user>0:
+    data = cur.fetchone()
+    uid = data['id']
+    uname = data['name']
     cur.execute('SELECT `category` FROM `products` GROUP BY category')
     cat1 = cur.fetchall()
     cur.execute('SELECT * FROM ( SELECT *, ROW_NUMBER() OVER (PARTITION BY category Order by price DESC) AS Sno FROM products )RNK WHERE Sno <=4 ')
     product = cur.fetchall()
-
     cur.close()
-
-    return render_template('user/home.html', cat1=cat1, product=product, show_predictions_modal=True)
+    return render_template('user/home.html', cat1=cat1, product=product, id = uid, name = uname)
 
 
 # User registration form
@@ -281,10 +284,10 @@ def login():
                     cur.execute(
                         "UPDATE users SET online=%s WHERE id=%s", (x, uid))
 
-                    return redirect(url_for('index_login'))
+                    return redirect(url_for('index_login', id=uid))
                 flash(
                     f"It's look like you haven't still verify your email - {email}")
-                return redirect(url_for("validate"))
+                return redirect(url_for("validate", id=uid))
 
             else:
                 flash('Incorrect password', 'danger')
