@@ -1,50 +1,264 @@
-{% extends 'layout.html' %}
-{% block body %}
-{% include 'includes/_flashmsg.html' %}
+<html>
 
-<div class="container">
-    <div class="card">
-        <div class="card-hrader">
-            <h5 class="card-title">Product Deatails</h5>
-        </div>
-        <div class="card-body">
-            <div class="cart-body">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- css links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+
+    <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css"
+        integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+    <!-- js links -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script src="/static/js/cart_product.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/cart2.js"></script>
+
+
+    <!--Get your own code at fontawesome.com-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body style="background-color:aliceblue; margin-top: 57px">
+    <div id="preloader"
+        style="background:aliceblue url(/static/image/other/gifgit.gif) no-repeat center center; height:100%; width:100%; position:fixed; z-index:100">
+
+    </div>
+
+    {% include 'includes/_navbar.html' %}
+    <div class="container-fluid">
+        {% include 'includes/_flashmsg.html' %}
+
+        <div class="container">
+            <div class="card" style="min-width: 630px;">
+                <div class="card-header">
+                    <h5 class="card-title">Product Deatails</h5>
+                </div>
+                <div class="card-body">
+                    <div class="cart-body">
+
+                    </div>
+                </div>
+
+
+                <button type="button" class="btn btn-success checkout-btn" style="float: right;"><i
+                        class="fas fa-cart-arrow-down"></i>
+                    Checkout</button>
+
 
             </div>
         </div>
-        <div class="card-footer">
-
-            <button type="button" class="btn btn-success checkout-btn" style="float: right;"><i
-                    class="fas fa-cart-arrow-down"></i>
-                Checkout</button>
-
-        </div>
     </div>
-</div>
-<script>
+
+    <!-- Contact Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font Awesome Kit -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!--  -->
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js">
+    </script>
+    <script>
+        var loader = document.getElementById('preloader');
+        window.addEventListener('load', function () {
+            loader.style.display = 'none';
+        })
+
+    </script>
+    <script>
 
 
-    function add_to_cart(pid, pname, price, category, image) {
+        function add_to_cart(pid, pname, price, category, image) {
 
-        let cart = localStorage.getItem("cart");
-        if (cart == null) {
-            //no cart yet
-            let products = [];
-            let product = {
-                productId: pid, productName: pname, productQuantity: 1, productPrice: price, productCategory: category,
-                productImage: image
-            };
-            products.push(product);
-            localStorage.setItem('cart', JSON.stringify(products));
-            console.log('Product Added')
+            let cart = localStorage.getItem("cart");
+            if (cart == null) {
+                //no cart yet
+                let products = [];
+                let product = {
+                    productId: pid, productName: pname, productQuantity: 1, productPrice: price, productCategory: category,
+                    productImage: image
+                };
+                products.push(product);
+                localStorage.setItem('cart', JSON.stringify(products));
+                console.log('Product Added')
 
-        } else {
-            // cart is already present
-            let pcart = JSON.parse(cart);
+            } else {
+                // cart is already present
+                let pcart = JSON.parse(cart);
 
-            let oldProduct = pcart.find((item) => item.productId == pid)
-            if (oldProduct) {
-                //quantity
+                let oldProduct = pcart.find((item) => item.productId == pid)
+                if (oldProduct) {
+                    alert("Product Already Added!");
+                    console.log('Product already added')
+                    //quantity
+                } else {
+                    //product
+                    let product = {
+                        productId: pid, productName: pname, productQuantity: 1, productPrice: price, productCategory: category,
+                        productImage: image
+                    };
+                    pcart.push(product);
+                    localStorage.setItem('cart', JSON.stringify(pcart));
+                    console.log('Product Quantity Added')
+
+                }
+            }
+            updateCart();
+
+        }
+
+        // cart Update
+        function updateCart() {
+            let cartString = localStorage.getItem("cart");
+            let cart = JSON.parse(cartString);
+            if (cart == null || cart.length == 0) {
+                console.log("Cart is Empty")
+                $(".cart-items").html("(0)");
+                $(".cart-body").html("<h3>Cart does not have any items</h3>");
+                $(".checkout-btn").addClass('disabled');
+
+            }
+            else {
+                //thre is something
+                console.log(cart.length)
+
+                $(".cart-items").html(`(${cart.length})`);
+                let table = `
+            <table class='table'>
+                <thead class='thead-light'>
+                    <tr>
+                        <th>Picture</th>
+                        <th>Item Name</th>
+                        <th>Item price</th>
+                        <th>Item Quantity</th>
+                        <th>Total Price</th>
+                        <th>Action</th>
+            
+                    </tr>
+            
+                </thead>
+            
+                `
+
+                let totalPrice = 0;
+
+
+
+                cart.map((item) => {
+
+                    table += `
+                <tr>
+                    <td>
+                        
+                    <img class="card" style="height:100px; width:100px;" src="/static/image/product/${item.productCategory}/${item.productImage}" alt="hello">
+                    </td>
+            
+                    <td>
+                        ${item.productName}<br><br>${item.productCategory}
+                    </td>
+            
+            
+                    <td>
+                        <div id="price">${item.productPrice}</div>
+                    </td>
+            
+            
+                    <td>
+                        <div class="chevrons">
+                            <button class="btn btn-sm" value="${item.productId}" onclick="increment(this.value)"><i class="fas fa-chevron-up"></i></button>
+                            <span class="item-amount quan_y" id="quantity" name="quantity" value="${item.productQuantity}">${item.productQuantity}</span>
+                            <button class="btn btn-sm" value="${item.productId}" onclick="decrement(this.value)"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+    
+                     
+                    </td>
+            
+            
+                    <td>
+            
+                        <div class="totalP">${item.productPrice * item.productQuantity}</div>
+                    </td>
+            
+                    <td>
+                        <button value="${item.productId}" id="button" onclick="removeProduct(this.value)" class="btn btn-danger btn-sm">
+                            Remove
+                        </button>
+                    </td>
+            
+            
+                </tr>
+            
+            
+            
+                `;
+                    totalPrice += item.productPrice * item.productQuantity;
+
+
+                })
+
+                table = table +
+                    `
+                <tr>
+                    <td colspan='5' class='text-right'>
+                        Total Price: ${totalPrice}
+                    </td>
+                </tr>
+            </table>
+            `
+                $(".cart-body").html(table);
+
+
+            }
+            $(document).ready(function () {
+
+            });
+
+        }
+        //gist.github.com/umutyerebakmaz/fa824be8196bad0bce3b002e2d741617 
+        function removeProduct(value) {
+
+            let cartString = localStorage.getItem("cart");
+            let cart = JSON.parse(cartString);
+            cart = cart.filter(item => item.productId !== value);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            console.log('Product removed')
+            updateCart();
+
+        }
+
+        function increment(value) {
+            let cartString = localStorage.getItem("cart");
+            let pcart = JSON.parse(cartString);
+
+            let oldProduct = pcart.find((item) => item.productId == value)
+            if (oldProduct.productQuantity >= 5) {
+                $(this.button).addClass('disabled');
+            } else {
                 oldProduct.productQuantity = oldProduct.productQuantity + 1
                 pcart.map((item) => {
                     if (item.productId == oldProduct.productId) {
@@ -52,136 +266,52 @@
                     }
                 })
                 localStorage.setItem('cart', JSON.stringify(pcart));
-                console.log('Product Quantity increased')
-
-
-            } else {
-                //product
-                let product = {
-                    productId: pid, productName: pname, productQuantity: 1, productPrice: price, productCategory: category,
-                    productImage: image
-                };
-                pcart.push(product);
-                localStorage.setItem('cart', JSON.stringify(pcart));
-                console.log('Product Quantity Added')
-
+                console.log(' Quantity increased')
             }
+
+            updateCart()
         }
-        updateCart();
 
-    }
+        function decrement(value) {
+            let cartString = localStorage.getItem("cart");
+            let pcart = JSON.parse(cartString);
 
-    // cart Update
-    function updateCart() {
-        let cartString = localStorage.getItem("cart");
-        let cart = JSON.parse(cartString);
-        if (cart == null || cart.length == 0) {
-            console.log("Cart is Empty")
-            $(".cart-items").html("(0)");
-            $(".cart-body").html("<h3>Cart does not have any items</h3>");
-            $(".checkout-btn").addClass('disabled');
+            let oldProduct = pcart.find((item) => item.productId == value)
+            if (oldProduct.productQuantity <= 1) {
+                $(this.button).addClass('disabled');
+            } else {
+                oldProduct.productQuantity = oldProduct.productQuantity - 1
+                pcart.map((item) => {
+                    if (item.productId == oldProduct.productId) {
+                        item.productQuantity = oldProduct.productQuantity;
+                    }
+                })
+                localStorage.setItem('cart', JSON.stringify(pcart));
+                console.log('Product Quantity decresed')
+            }
 
-        }
-        else {
-            //thre is something
-            console.log(cart.length)
-
-            $(".cart-items").html(`(${cart.length})`);
-            let table = `
-        <table class='table'>
-            <thead class='thead-light'>
-                <tr>
-                    <th>Picture</th>
-                    <th>Item Name</th>
-                    <th>Item price</th>
-                    <th>Item Quantity</th>
-                    <th>Total Price</th>
-                    <th>Action</th>
-        
-                </tr>
-        
-            </thead>
-        
-            `
-
-            let totalPrice = 0;
-
-
-
-            cart.map((item) => {
-
-                table += `
-            <tr>
-                <td>
-                <img class="card" style="height:100px; width:100px;" src="/static/image/product/${item.productCategory}/${item.productImage}" alt="hello">
-                </td>
-        
-                <td>
-                    ${item.productName}<br><br>${item.productCategory}
-                </td>
-        
-        
-                <td>
-                    <div id="price">${item.productPrice}</div>
-                </td>
-        
-        
-                <td>
-                    <div class="quan_y" id="quantity" name="quantity"
-                        value="${item.productQuantity}" min="1" max="5">${item.productQuantity}</div>
-
-        
-                </td>
-        
-        
-                <td>
-        
-                    <div class="totalP">${item.productPrice * item.productQuantity}</div>
-                </td>
-        
-                <td>
-                    <button onclick="removeProduct()" class="btn btn-danger btn-sm">
-                        Remove
-                    </button>
-                </td>
-        
-        
-            </tr>
-        
-        
-        
-            `;
-                totalPrice += item.productPrice * item.productQuantity;
-
-
-            })
-
-            table = table +
-                `
-            <tr>
-                <td colspan='5' class='text-right'>
-                    Total Price: ${totalPrice}
-                </td>
-            </tr>
-        </table>
-        `
-            $(".cart-body").html(table);
-
+            updateCart()
 
         }
+
         $(document).ready(function () {
-
+            updateCart();
         });
+    </script>
 
-    }
+</body>
 
+</html>
 
-
-
-
-    $(document).ready(function () {
-        updateCart();
-    });
-</script>
-
-{% endblock body %}
+<!-- if (oldProduct.productQuantity >= 5) {
+    $(this.button).addClass('disabled');
+} else {
+    oldProduct.productQuantity = oldProduct.productQuantity + 1
+    pcart.map((item) => {
+        if (item.productId == oldProduct.productId) {
+            item.productQuantity = oldProduct.productQuantity;
+        }
+    })
+    localStorage.setItem('cart', JSON.stringify(pcart));
+    console.log('Product Quantity increased')
+} -->

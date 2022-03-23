@@ -17,6 +17,7 @@ from wtforms.fields.html5 import EmailField
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/image/product'
+# app.config["CLIENT_PDF"] = "FoodHunt-Canteen"
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 
@@ -49,7 +50,7 @@ def is_logged_in(f):
         if 'logged_in' in session:
             return f(*args, *kwargs)
         else:
-            return redirect(url_for('login'))
+            return redirect(url_for('login', next= request.url))
 
     return wrap
 
@@ -106,17 +107,20 @@ def index():
 def index_login(id):
     
     cur = mysql.connection.cursor()
-    user = cur.execute('SELECT * FROM users WHERE id =%s',(id,))
-    # if user>0:
+    cur.execute('SELECT * FROM users WHERE id =%s',(id,))
     data = cur.fetchone()
-    uid = data['id']
-    uname = data['name']
+    # uid = data['id']
+    # name = data['name']
+    # session['uid'] = uid
+    # session['s_name'] = name
+
+  
     cur.execute('SELECT `category` FROM `products` GROUP BY category')
     cat1 = cur.fetchall()
     cur.execute('SELECT * FROM ( SELECT *, ROW_NUMBER() OVER (PARTITION BY category Order by price DESC) AS Sno FROM products )RNK WHERE Sno <=4 ')
     product = cur.fetchall()
     cur.close()
-    return render_template('user/home.html', cat1=cat1, product=product, id = uid, name = uname)
+    return render_template('user/home.html', cat1=cat1, product=product)
 
 
 # User registration form
@@ -284,7 +288,17 @@ def login():
                     cur.execute(
                         "UPDATE users SET online=%s WHERE id=%s", (x, uid))
 
-                    return redirect(url_for('index_login', id=uid))
+                    # return redirect(url_for('index_login', id=uid))
+
+                    if 'next' in request.args:
+                        dest = request.args.get('next')
+                        print(dest)
+                        return redirect(dest)
+
+                    else:
+                        return redirect(url_for('index_login', id=uid))
+
+                  
                 flash(
                     f"It's look like you haven't still verify your email - {email}")
                 return redirect(url_for("validate", id=uid))
@@ -442,7 +456,64 @@ def feedback():
             flash('successfull', 'success')
             return redirect(url_for('index'))
     flash('try again', 'danger')
+
+# Contact
+@app.route('/Contact-us')
+def contact():
+
+    return render_template('contact.html')
+
+#menu
+
+
+@app.route('/download')
+def download_file():
+	#path = "html2pdf.pdf"
+	#path = "info.xlsx"
+	path = "menu.pdf"
+	#path = "sample.txt"
+	return send_file(path, as_attachment=True)
+# @app.route('/canteen-menu',methods = ['GET','POST'])
+# def get_csv():
+#     try:
+#         return send_from_directory(app.config["CLIENT_PDF"], filename='menu.pdf',as_attachment=True)
+#     except FileNotFoundError:
+#         abort(404)
 # User Profile
+
+class OrderForm(Form):  # Create Order Form
+    name = StringField('', [validators.length(min=1), validators.DataRequired()],
+                       render_kw={'autofocus': True, 'placeholder': 'Full Name'})
+    mobile_num = StringField('', [validators.length(min=1), validators.DataRequired()],
+                             render_kw={'autofocus': True, 'placeholder': 'Mobile'})
+    quantity = SelectField('', [validators.DataRequired()],
+                           choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
+    order_place = StringField('', [validators.length(min=1), validators.DataRequired()],
+                              render_kw={'placeholder': 'Order Place'})
+# Search
+@app.route('/search', methods=['POST', 'GET'])
+def search():
+    form = OrderForm(request.form)
+    if 'q' in request.args:
+        q = request.args['q']
+        # Create cursor
+        cur = mysql.connection.cursor()
+        # Get message
+        query_string = "SELECT * FROM products WHERE pName LIKE %s ORDER BY id ASC "
+        cur.execute(query_string, ('%' + q + '%',))
+        products = cur.fetchall()
+
+        query_string_cat = "SELECT `category` FROM products WHERE pName LIKE %s GROUP BY category "
+        cur.execute(query_string_cat, ('%' + q + '%',))
+        category = cur.fetchall()
+        print(category, products)
+        # Close Connection
+        cur.close()
+        flash('Showing result for: ' + q, 'success')
+        return render_template('search.html', products=products, form=form, category=category)
+    else:
+        flash('Search again', 'danger')
+        return render_template('search.html')
 
 
 @app.route('/user/profile')

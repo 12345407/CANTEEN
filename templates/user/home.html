@@ -94,7 +94,7 @@
 
 <style>
 </style>
-<h1> Wlecome to id number: {{id}} {{name}}</h1>
+<h1> Wlecome to id number: {{session.uid}}</h1>
 
 
 
@@ -125,8 +125,10 @@
                 jeamsun denim lorem
                 jeansum.</p>
         </a>
-        <p><button onclick="add_to_cart('{{product.id}}',' {{product.pName}}',' {{product.price}}')">Add to
-                Cart</button>
+        <p><button
+                onclick="add_to_cart('{{product.id}}', '{{product.pName}}', '{{product.price}}', '{{product.category}}', '{{product.picture}}')">
+                Add to Cart
+            </button>
             <button style="float: right;">Order Now</button>
         </p>
 

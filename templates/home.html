@@ -17,7 +17,7 @@
             <div class="carousel-inner" role="listbox" style="max-height: 350px; ">
                 <div class="carousel-item active">
                     <img class="  width:fit-content" width="100%" height="350px"
-                        src="https://th.bing.com/th/id/OIP.I9J9K8syoe4UZ2EQ3F3bCQHaFj?w=230&h=180&c=7&o=5&dpr=1.25&pid=1.7"
+                        src="https://th.bing.com/th/id/OIP.3hAjkhnRq0-FpoqNcuLRYgHaEP?pid=ImgDet&rs=1"
                         alt="Indian Best Seller">
                     <div class="carousel-caption">
 
@@ -33,7 +33,7 @@
                 </div>
                 <div class="carousel-item">
                     <img class="  width:fit-content" width="100%" height="350px"
-                        src="https://th.bing.com/th/id/OIP.NVfRJ6EfzkLkfX3XgieDVQHaE8?w=294&h=196&c=7&o=5&dpr=1.25&pid=1.7"
+                        src="https://i.pinimg.com/originals/f7/5c/e2/f75ce23fe5f11c83d0de935d0870d374.jpg"
                         alt="Indian Best Seller">
                     <div class="carousel-caption">
 
@@ -64,8 +64,7 @@
     width: 800;
     text-align:center
     ">
-    <h3>Welcome to Prahladrai Dalmia Lions College,<a href="/login/students"
-            style="color:black;text-decoration: none; border-bottom:1px solid">Canteen</a>
+    <h3>Welcome to Prahladrai Dalmia Lions College, Canteen
     </h3>
     <hr>
 </div>
@@ -83,8 +82,13 @@
             extra-curricular activities that promote resilience, creativity and leadership qualities among the
             students…</p>
         <a href="https://www.dalmialionscollege.ac.in/about-us/"><button class="btn btn-success">Read More</button></a>
+
         {% if session.logged_in %}
-        <a href="/canteen"><button class="btn btn-primary" style="float: right;">Go to Canteen</button></a>
+
+        <a href="/canteen/{{session.uid}}"><button class="btn btn-primary" style="float: right;">Go to
+                Canteen</button></a>
+
+
         {% else %}
         <a href="/login"><button class="btn btn-primary" style="float: right;">Login to Canteen</button></a>
         {% endif %}
@@ -109,7 +113,7 @@
                 </div>
                 <div class="carousel-item">
                     <img class="  width:fit-content" width="100%" height="350px"
-                        src="https://th.bing.com/th/id/OIP.eypTNK9QMkFfQFuUNaj2xQAAAA?w=217&h=169&c=7&o=5&dpr=1.25&pid=1.7"
+                        src="https://www.adaxbs.com/wp-content/uploads/2017/05/canteen_management_slide_1.jpg"
                         alt="Indian Best Seller">
                     <div class="carousel-caption">
 
@@ -117,7 +121,7 @@
                 </div>
                 <div class="carousel-item">
                     <img class="  width:fit-content" width="100%" height="350px"
-                        src="https://th.bing.com/th/id/OIP.NVfRJ6EfzkLkfX3XgieDVQHaE8?w=294&h=196&c=7&o=5&dpr=1.25&pid=1.7"
+                        src="https://th.bing.com/th/id/R.06c957d22146bc30d39a7057225084c4?rik=x%2bUfyxsfOoj0Yw&riu=http%3a%2f%2fwww.ashesi.edu.gh%2fimages%2fhousing%2fAshesi_AkornorCanteen_inline.jpg&ehk=jBi3kRx4VgwntjxPjSAEH1vGRPsEaTsvxAP7K4MxySA%3d&risl=&pid=ImgRaw&r=0"
                         alt="Indian Best Seller">
                     <div class="carousel-caption">
 
