@@ -63,17 +63,20 @@
             <p class="price">${{product.price}}</p>
             <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem
                 jeansum.</p>
-            <p>
 
-                <button class="btn btn-success"
-                    onclick="add_to_cart('{{product.id}}', '{{product.pName}}', '{{product.price}}', '{{product.category}}', '{{product.picture}}')">
-                    Add <i class="fas fa-cart-plus"> </i>
-                </button>
-
-
-                <button style="float: right;">Order Now</button>
-            </p>
         </a>
+        <p>
+
+            <button class="btn btn-success"
+                onclick="add_to_cart('{{product.id}}', '{{product.pName}}', '{{product.price}}', '{{product.category}}', '{{product.picture}}')">
+                Add <i class="fas fa-cart-plus"> </i>
+            </button>
+
+
+            <a href="/View_Product_id/view_product_id.html?id={{product.id}}"><button style="float: right;">Order
+                    Now</button></a>
+        </p>
+
     </div>
 
 

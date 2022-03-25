@@ -1,6 +1,3 @@
-<script>
-
-
 function add_to_cart(pid, pname, price, category, image) {
 
     let cart = localStorage.getItem("cart");
@@ -205,4 +202,3 @@ function decrement(value) {
 $(document).ready(function () {
     updateCart();
 });
-</script>

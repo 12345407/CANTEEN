@@ -1,4 +1,5 @@
 from ntpath import join
+from sre_constants import SUCCESS
 from flask import *
 from flask_mail import *
 from random import *
@@ -14,6 +15,7 @@ import timeit
 import datetime
 import os
 from wtforms.fields.html5 import EmailField
+from operator import itemgetter
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/image/product'
@@ -97,9 +99,41 @@ def wrappers(func, *args, **kwargs):
 # Home page
 @app.route('/')
 def index():
-
+    
     return render_template('home.html')
+# pay
+@app.route('/pay',methods=["GET", "POST"])
+def pay():
+    if request.method == 'POST':
+        data = request.json
+        data1= jsonify(data)
+        print(data)
+        print(len(data))
+        print(data[0])
+        for i in range(len(data)):
+            a,b,c,d,e,f = itemgetter('productId','productName','productQuantity','productPrice','productCategory','productImage')(data[i])
+            # Create Cursor
+            cur = mysql.connection.cursor()
 
+            cur.execute("INSERT INTO orders(productId,productName,productQuantity,productPrice,productCategory,productImage) VALUES(%s, %s, %s, %s, %s, %s)",
+                                      (a,b,c,d,e,f))
+            # Commit cursor
+            mysql.connection.commit()
+
+        # Close Connection
+        cur.close()
+        flash('payment successfull')
+        return render_template('user/payment_success.html')
+    else:
+        return render_template('user/cart.html')
+
+    return render_template('user/payment_success.html')
+
+# success
+@app.route('/success')
+def success():
+
+    return render_template('user/payment_success.html')
 
 # Home page
 @app.route('/canteen/<id>')
@@ -514,6 +548,8 @@ def search():
     else:
         flash('Search again', 'danger')
         return render_template('search.html')
+
+
 
 
 @app.route('/user/profile')

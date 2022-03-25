@@ -65,9 +65,10 @@
                 </div>
 
 
-                <button type="button" class="btn btn-success checkout-btn" style="float: right;"><i
-                        class="fas fa-cart-arrow-down"></i>
-                    Checkout</button>
+                <a href="{{url_for('pay')}}"><button type="button" class="btn btn-success checkout-btn" value=""
+                        onclick="checkout()" style="float: right;"><i class="fas fa-cart-arrow-down"></i>
+                        Checkout</button></a>
+                <p calss="innerhtml"></p>
 
 
             </div>
@@ -224,14 +225,14 @@
                 table = table +
                     `
                 <tr>
-                    <td colspan='5' class='text-right'>
+                    <td colspan='5' class='text-right' value="${totalPrice}" id="totalPrice">
                         Total Price: ${totalPrice}
                     </td>
                 </tr>
             </table>
             `
-                $(".cart-body").html(table);
 
+                $(".cart-body").html(table);
 
             }
             $(document).ready(function () {
@@ -293,6 +294,31 @@
             updateCart()
 
         }
+        function checkout() {
+            let cartString = localStorage.getItem("cart");
+            let pcart = JSON.parse(cartString);
+            let totalPrice = 0;
+            pcart.map((item) => {
+                totalPrice += item.productPrice * item.productQuantity;
+            })
+            $('.checkout-btn').val(totalPrice)
+            console.log($('.checkout-btn').val())
+
+            var cart = JSON.stringify(pcart);
+            $.ajax({
+                url: '/pay',
+                type: 'post',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: cart
+            });
+
+
+        }
+
+
+
+
 
         $(document).ready(function () {
             updateCart();

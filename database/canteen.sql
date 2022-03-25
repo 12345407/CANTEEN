@@ -59,3 +59,19 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 -- Dumping data for table `products`
 --
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `productId` int(11) NOT NULL,
+    `productName` varchar(100) NOT NULL,
+    `productQuantity` int(11) NOT NULL,
+    `productPrice` int(11) NOT NULL,
+    `productCategory` varchar(100) NOT NULL,
+    `productImage` text NOT NULL,
+    `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 22 DEFAULT CHARSET = latin1;
+--
+-- Dumping data for table `products`
+--

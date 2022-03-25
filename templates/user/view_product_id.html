@@ -42,8 +42,10 @@
                     <h4>${{ product.price}}</h4>
                     <p class="card-text">{{ product.description}}</p>
 
-                    <a href="/order_product/order_detail?order={{product.id}}" class="btn btn-success">Order
-                        Now</a>
+                    <a href="/canteen/cart.html"><button class="btn btn-success"
+                            onclick="add_to_cart('{{product.id}}', '{{product.pName}}', '{{product.price}}', '{{product.category}}', '{{product.picture}}')">
+                            Buy Now
+                        </button></a>
                     <!-- <a href="" class="btn btn-primary"
                             onclick="add_to_cart('{{product.id}}', '{{product.pName}}',' {{product.price}}')">Add To
                             Basket <i class="fa fa-cart-plus" aria-hidden="true"></i></a> -->
@@ -53,6 +55,9 @@
                         onclick="add_to_cart('{{product.id}}', '{{product.pName}}', '{{product.price}}', '{{product.category}}', '{{product.picture}}')">
                         Add <i class="fas fa-cart-plus"> </i>
                     </button>
+
+
+
 
 
 
