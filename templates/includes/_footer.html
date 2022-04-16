@@ -47,7 +47,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="right box">
-                    <div class="topic" style="text-align: center;">SUBSCRIBE</div>
+                    <div class="topic" style="text-align: center;">FEEDBACK</div>
                     <form action="/feedback" method="POST">
                         {% if session.logged_in %}
                         <input type="text" name="email" required value="{{session.email}}">
@@ -56,7 +56,7 @@
                         <input type="text" name="email" required placeholder="Enter email address">
 
                         {% endif %}
-                        <input type="submit" name="" value="SUBSCRIBE">
+                        <input type="submit" name="" value="FEEDBACK">
 
 
                     </form>

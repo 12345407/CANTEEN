@@ -123,7 +123,7 @@ def pay():
         # Close Connection
         cur.close()
         flash('payment successfull')
-        return render_template('user/payment_success.html')
+        return jsonify(data)
     else:
         return render_template('user/cart.html')
 

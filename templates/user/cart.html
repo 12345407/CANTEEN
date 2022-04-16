@@ -311,6 +311,8 @@
                 contentType: 'application/json',
                 dataType: 'json',
                 data: cart
+            }).done(function (data) {
+                window.location.replace("/success");
             });
 
 
